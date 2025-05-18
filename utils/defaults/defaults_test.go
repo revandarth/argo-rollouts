@@ -426,3 +426,17 @@ func TestSetDefaults(t *testing.T) {
 	SetDescribeTagsLimit(2)
 	assert.Equal(t, 2, GetDescribeTagsLimit())
 }
+
+func TestRolloutVerifyRetryIntervalFromEnv(t *testing.T) {
+	t.Setenv(EnvVarRolloutVerifyRetryInterval, "15")
+	rolloutVerifyRetryInterval = 10 * time.Second
+	init()
+	assert.Equal(t, 15*time.Second, GetRolloutVerifyRetryInterval())
+}
+
+func TestRolloutVerifyRetryIntervalInvalidEnv(t *testing.T) {
+	t.Setenv(EnvVarRolloutVerifyRetryInterval, "bad")
+	rolloutVerifyRetryInterval = 10 * time.Second
+	init()
+	assert.Equal(t, 10*time.Second, GetRolloutVerifyRetryInterval())
+}
