@@ -89,7 +89,7 @@ var (
 
 func init() {
 	if rolloutVerifyInterval, ok := os.LookupEnv(EnvVarRolloutVerifyRetryInterval); ok {
-		if interval, err := strconv.ParseInt(rolloutVerifyInterval, 10, 32); err != nil {
+		if interval, err := strconv.ParseInt(rolloutVerifyInterval, 10, 32); err == nil {
 			rolloutVerifyRetryInterval = time.Duration(interval) * time.Second
 		}
 	}
